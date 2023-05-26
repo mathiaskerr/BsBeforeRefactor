@@ -21,13 +21,16 @@ public class ShipTest {
 
     @Before
     public void before() {
+//        create new ships to test
         ship1 = new Ship("3:3,3:5");
         ship2 = new Ship("1:1,1:2");
         allShipCoordinates = new ArrayList<String>();
         guesses = new ArrayList<String>();
         ships = new ArrayList<Ship>();
+//        add ships here
         ships.add(ship1);
         ships.add(ship2);
+//        add guesses for testing
         guesses.add("1:1");
         guesses.add("1:2");
         guesses.add("3:3");
@@ -42,15 +45,15 @@ public class ShipTest {
 
     @Test
     public void canHitShip(){
-        assertEquals(true ,ship1.checkHit("3:3"));
-        assertEquals(true ,ship1.checkHit("3:4"));
-        assertEquals(true ,ship1.checkHit("3:5"));
-        assertEquals(false ,ship1.checkHit("3:6"));
+        assertEquals(true ,ship1.checkHit(ship1.createShip(),"3:3"));
+        assertEquals(true ,ship1.checkHit(ship1.createShip(),"3:4"));
+        assertEquals(true ,ship1.checkHit(ship1.createShip(),"3:5"));
+        assertEquals(false ,ship1.checkHit(ship1.createShip(),"3:6"));
+        assertEquals(false ,ship2.checkHit(ship2.createShip(),"3:6"));
     }
-
 
     @Test
     public void canPlay(){
-        assertEquals(1 ,ship1.play(ships,guesses));
+        assertEquals("You sunk 1 ships and 1 remains" ,ship1.play(ships,guesses));
     }
 }

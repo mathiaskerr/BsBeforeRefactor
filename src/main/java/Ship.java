@@ -27,61 +27,49 @@ public class Ship {
         String[] point1 = coordinates[0].split(":");
         String[] point2 = coordinates[1].split(":");
 
-        for(int i=0; i< coordinates.length; i++) {
-            allShipCoordinates.add(coordinates[i]);
+        for(String coordinate : coordinates) {
+            allShipCoordinates.add(coordinate);
         }
 
-
-        int ref = 0;
-        String p = "";
+        int ref;
+        String newCoordinate = "";
         if(Integer.parseInt(point1[0]) == Integer.parseInt(point2[0])){
             if(Integer.parseInt(point1[1]) > Integer.parseInt(point2[1])){
                 ref = Integer.parseInt(point1[1]) - Integer.parseInt(point2[1])- 1;
                 for(int i=0; i< ref; i++) {
-
                     String x = point1[0] +":";
-            int y = Integer.parseInt(point1[1]) - ref + i;
-            String z = Integer.toString(y);
-                 p = x + z;
-                 allShipCoordinates.add(p);
-        }
-
-            } else {
+                    int y = Integer.parseInt(point1[1]) - ref + i;
+                    String z = Integer.toString(y);
+                    newCoordinate = x + z;
+                    allShipCoordinates.add(newCoordinate);
+                }
+        } else {
                 ref = Integer.parseInt(point2[1]) - Integer.parseInt(point1[1]) - 1;
-
-
                 for (int i = 0; i < ref; i++) {
-
                     String x = point1[0] + ":";
                     int y = Integer.parseInt(point2[1]) - ref + i;
                     String z = Integer.toString(y);
-                    p = x + z;
-                    allShipCoordinates.add(p);
-
+                    newCoordinate = x + z;
+                    allShipCoordinates.add(newCoordinate);
                 }
             }
-//                the big else
         } else {
             if(Integer.parseInt(point1[0]) > Integer.parseInt(point2[0])){
                 ref = Integer.parseInt(point1[0]) - Integer.parseInt(point2[0])- 1;
                 for(int i=0; i< ref; i++) {
-
                     String x =  ":" + point1[1] ;
                     int y = Integer.parseInt(point1[0]) - ref + i;
                     String z = Integer.toString(y);
-                    p = z + x;
-                    allShipCoordinates.add(p);
+                    newCoordinate = z + x;
+                    allShipCoordinates.add(newCoordinate);
                 }
-
             } else { ref = Integer.parseInt(point2[0]) - Integer.parseInt(point1[0])- 1;
-
                 for(int i=0; i< ref; i++) {
-
                     String x =   ":" + point1[1];
                     int y = Integer.parseInt(point2[0]) - ref + i;
                     String z = Integer.toString(y);
-                    p =  z + x;
-                    allShipCoordinates.add(p);
+                    newCoordinate =  z + x;
+                    allShipCoordinates.add(newCoordinate);
                 }
             }
         }
@@ -89,15 +77,11 @@ public class Ship {
     return allShipCoordinates;
     }
 
-    public boolean checkHit(String guess) {
-        ArrayList<String> ship = createShip();
-//        return if guess is ship
+    public boolean checkHit(ArrayList ship,Object guess) {
         return ship.contains(guess);
-
     }
 
-
-    public int play(ArrayList ships, ArrayList guesses) {
+    public String play(ArrayList ships, ArrayList guesses) {
         int shipsSunk= 0;
         int shipsRemaining= 0;
         ArrayList<String> currentShip = new ArrayList<String>();
@@ -106,20 +90,18 @@ public class Ship {
                Ship ship = (Ship) ships.get(i);
               currentShip = ship.createShip();
               for(int j =0; j < guesses.size() ; j ++){
-                  if(currentShip.contains(guesses.get(j))){
+                  if(checkHit(currentShip,guesses.get(j))){
                       currentShip.remove(guesses.get(j));
-
                   }
-
               }
-              if(currentShip.size() == 0){shipsSunk += 1;}
-
-
+              if(currentShip.size() == 0){shipsSunk += 1;
+              }else{
+                  shipsRemaining += 1;}
         }
-
-        return shipsSunk;
+        return ("You sunk " + Integer.toString(shipsSunk) +" ships and " + Integer.toString(shipsRemaining) + " remains");
     }
 }
+
 
 
 
