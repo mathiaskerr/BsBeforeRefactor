@@ -1,25 +1,15 @@
 import java.util.ArrayList;
 
 public class Ship {
-
     private String coordinates;
-
-
 
     public Ship(String coordinates) {
         this.coordinates = coordinates;
     }
 
-
     public String getCoordinates() {
         return coordinates;
     }
-
-    public void setCoordinates(String coordinates) {
-        this.coordinates = coordinates;
-    }
-
-
 
     public ArrayList<String> createShip() {
         ArrayList<String> allShipCoordinates = new ArrayList<String>();
