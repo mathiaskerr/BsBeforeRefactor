@@ -97,7 +97,28 @@ public class Ship {
     }
 
 
+    public int play(ArrayList ships, ArrayList guesses) {
+        int shipsSunk= 0;
+        int shipsRemaining= 0;
+        ArrayList<String> currentShip = new ArrayList<String>();
 
+        for(int i =0; i < ships.size() ; i ++){
+               Ship ship = (Ship) ships.get(i);
+              currentShip = ship.createShip();
+              for(int j =0; j < guesses.size() ; j ++){
+                  if(currentShip.contains(guesses.get(j))){
+                      currentShip.remove(guesses.get(j));
+
+                  }
+
+              }
+              if(currentShip.size() == 0){shipsSunk += 1;}
+
+
+        }
+
+        return shipsSunk;
+    }
 }
 
 
